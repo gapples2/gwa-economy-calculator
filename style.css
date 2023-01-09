@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+*{
+    font-family: 'Inter', sans-serif;
+    background-color: black;
+    color: white;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+}
+
+button{
+    border: 2px solid white;
+    border-radius: 1px;
+}
+
+.lottery-multipliers-removeBtn{
+    color: red;
+    border-color: red;
+}
+
+#lottery-multipliers-button{
+    color: lime;
+    border-color: lime;
+}
