@@ -22,18 +22,21 @@ const lottery = {
         range:document.getElementById("lottery-range"),
         multiplierButton:document.getElementById("lottery-multipliers-button"),
         multiplierDiv:document.getElementById("lottery-multipliers-inputs"),
-        statistics:document.getElementById("lottery-statistics")
+        statistics:document.getElementById("lottery-statistics"),
+        cost:document.getElementById("lottery-cost")
     },
     multipliers:{
         init(){
-            lottery.elements.multiplierButton.addEventListener("click",lottery.multipliers.create)
-            lottery.elements.range.addEventListener("input",()=>{
+            const func = ()=>{
                 let input = lottery.elements.range
                 let i = input.value
                 if(i.length>5)input.value=i.slice(0,5)
                 if(i.includes("."))input.value=input.value.replace(".","")
                 lottery.update()
-            })
+            }
+            lottery.elements.multiplierButton.addEventListener("click",lottery.multipliers.create)
+            lottery.elements.range.addEventListener("input",func)
+            lottery.elements.cost.addEventListener("input",func)
         },
         create(){
             let num = lottery.elements.multipliers.length
@@ -103,7 +106,8 @@ const lottery = {
         let txt = "<h3>Probabilities:</h3>"
         for(let x=0;x<numbers;x++)txt+=`${x+1} number${x==0?"":"s"}: ${format(prob[x+1])}/${format(div)} (~${format(prob[x+1]/div*100)}%)<br>`
         let egain = lottery.calc.calculateExpectedValue(numbers,range,vals,false)
-        txt+=`<br>Expected gain/ticket: ${format(egain-div)}/${format(div)} (${format(egain/div-1)})`
+        let cost = Number(lottery.elements.cost.value)
+        txt+=`<br>Expected gain/ticket: ${format(egain-div*cost)}/${format(div)} (${format(egain/div-cost)})`
         lottery.elements.statistics.innerHTML = txt
     }
 }
